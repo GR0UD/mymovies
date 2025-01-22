@@ -1,0 +1,46 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  backdrop-filter: blur(10px);
+
+  .nav-list {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    height: 100%;
+    background-color: transparent !important;
+
+    margin: auto;
+
+    .nav-item {
+      .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #bcbccd;
+        font-size: 2.5rem;
+
+        .nav-icon {
+          display: inline-block;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+
+    .nav-item:nth-child(2) {
+      .nav-icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.nav-icon:nth-child(2) {
+  transform: rotateY(90deg);
+}
