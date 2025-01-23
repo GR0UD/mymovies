@@ -10,10 +10,13 @@
 }
 
 .header__container--details {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 2rem 2.4rem;
+  z-index: 1000;
 
-  backdrop-filter: blur(10px);
   .header__back-button {
     color: #ffffff;
     font-size: 3rem;
