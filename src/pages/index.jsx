@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/header";
-import NowShowing from "../components/home/catagoryOne";
-import MostPopular from "../components/home/catagoryTwo";
+import NowShowing from "../components/index/MovieShowingContent";
+import MostPopular from "../components/index/MoviePopularContent";
 import Nav from "../components/nav";
 import { useLocation } from "react-router-dom";
 

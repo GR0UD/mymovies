@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "../../../components/header";
-import MovieDetailsVideo from "../../../components/details/MovieDetailsVideo";
-import MovieDetailsContent from "../../../components/details/MovieDetailsContent";
+import MovieDetailsVideo from "../../../components/film-details/MovieDetailsVideo";
+import MovieDetailsContent from "../../../components/film-details/MovieDetailsContent";
 
 const genreList = [
   { id: 28, name: "Action" },
