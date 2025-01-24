@@ -1,0 +1,82 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Header from "../../../components/header";
+import SeriesDetailsVideo from "../../../components/series-details/SeriesDetailsVideo";
+import SeriesDetailsContent from "../../../components/series-details/SeriesDetailsContent";
+
+const languageMap = {
+  en: "English",
+  es: "Spanish",
+  fr: "French",
+  de: "German",
+  it: "Italian",
+  pt: "Portuguese",
+  ru: "Russian",
+  ja: "Japanese",
+  zh: "Chinese",
+  ar: "Arabic",
+  ko: "Korean",
+  hi: "Hindi",
+  bn: "Bengali",
+  ur: "Urdu",
+  fa: "Persian",
+  he: "Hebrew",
+  tr: "Turkish",
+  vi: "Vietnamese",
+  th: "Thai",
+  sv: "Swedish",
+  nl: "Dutch",
+  pl: "Polish",
+  id: "Indonesian",
+  ms: "Malay",
+  tl: "Tagalog",
+  uk: "Ukrainian",
+  el: "Greek",
+  ro: "Romanian",
+  hu: "Hungarian",
+  cs: "Czech",
+  sk: "Slovak",
+  bg: "Bulgarian",
+  sr: "Serbian",
+  hr: "Croatian",
+  fi: "Finnish",
+  da: "Danish",
+  te: "Telugu",
+  no: "Norwegian",
+};
+
+function SeriesDetails() {
+  const { id } = useParams();
+  const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
+  const [series, setSeries] = useState(null);
+
+  useEffect(() => {
+    const fetchSeries = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`
+        );
+        const data = await response.json();
+        setSeries(data);
+      } catch (error) {
+        console.error("Error fetching series details:", error);
+      }
+    };
+    fetchSeries();
+  }, [id]);
+
+  if (!series) return <div>Loading...</div>;
+
+  const videoKey = series.videos?.results?.[0]?.key || null;
+  return (
+    <main className="series-details-page">
+      <Header />
+      <div className="series-details-container">
+        <SeriesDetailsVideo videoKey={videoKey} />
+        <SeriesDetailsContent series={series} languageMap={languageMap} />
+      </div>
+    </main>
+  );
+}
+
+export default SeriesDetails;

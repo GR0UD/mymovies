@@ -1,7 +1,7 @@
-.movie-details-page {
+.series-details-page {
   max-height: 100dvh;
 
-  .movie-details-container {
+  .series-details-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,34 +11,35 @@
       height: 250px;
     }
 
-    .movie-details {
+    .series-details {
       position: relative;
       top: -30px;
       border-radius: 10px 10px 0 0;
       padding: 20px;
       width: 100%;
 
-      .movie-details__header {
+      .series-details__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
 
-        .movie-details__title {
+        .series-details__title {
           font-size: 2rem;
           font-weight: bold;
         }
 
-        .movie-details__bookmark {
+        .series-details__bookmark {
           font-size: 2rem;
-        }
+          cursor: pointer;
 
-        .movie-details__bookmark-active {
-          color: #ffcc00;
+          &.active {
+            color: #ffcc00;
+          }
         }
       }
 
-      .movie-details__rating {
+      .series-details__rating {
         display: flex;
         align-items: flex-start;
         font-size: 1.2rem;
@@ -51,7 +52,7 @@
         }
       }
 
-      .movie-details__tags {
+      .series-details__tags {
         display: flex;
         gap: 1rem;
         margin-bottom: 1.6rem;
@@ -68,12 +69,12 @@
         }
       }
 
-      .movie-details__info {
+      .series-details__info {
         display: flex;
         margin-bottom: 20px;
         gap: 5rem;
 
-        .movie-details__info-box {
+        .series-details__info-box {
           text-align: center;
 
           span:first-child {
@@ -94,14 +95,14 @@
         }
       }
 
-      .movie-details__heading {
+      .series-details__heading {
         font-size: 1.6rem;
         font-weight: bold;
         margin-bottom: 10px;
         font-family: "Merriweather", serif;
       }
 
-      .movie-details__description {
+      .series-details__description {
         font-size: 1.2rem;
         line-height: 2.2;
         color: #9c9c9c;
@@ -136,7 +137,7 @@
         }
       }
 
-      .movie-details__cast {
+      .series-details__cast {
         display: flex;
         gap: 1.5rem;
         list-style: none;
@@ -147,7 +148,7 @@
           display: none;
         }
 
-        .movie-details__cast-item {
+        .series-details__cast-item {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -161,7 +162,7 @@
             margin-bottom: 5px;
           }
 
-          .movie-details__cast-name {
+          .series-details__cast-name {
             font-size: 1.2rem;
             font-family: "Mulish", sans-serif !important;
             width: 100%;

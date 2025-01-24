@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import Header from "../components/header";
-import Nav from "../components/Nav";
+import { FaStar } from "react-icons/fa";
 
 const Index = () => {
   const [query, setQuery] = useState("");
@@ -32,33 +33,63 @@ const Index = () => {
     <>
       <Header query={query} setQuery={setQuery} onSearch={searchMovies} />
       <main className="movie-container">
-        {movies.map((movie) => (
-          <div className="movie-card" key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title || movie.name}
-              className="movie-poster"
-            />
-            <div className="movie-details">
-              <p className="movie-meta">
-                {movie.release_date?.slice(0, 4) || "N/A"} ·{" "}
-                {movie.media_type === "movie" ? "Movie" : "TV"}
-              </p>
-              <h3 className="movie-title">{movie.title || movie.name}</h3>
+        {movies
+          .filter(
+            (movie) =>
+              movie.poster_path &&
+              (movie.release_date || movie.first_air_date) &&
+              movie.vote_average !== undefined
+          )
+          .map((movie) => {
+            const posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+            const releaseYear =
+              movie.release_date?.slice(0, 4) ||
+              movie.first_air_date?.slice(0, 4);
+            const movieId = movie.id;
+            const mediaType = movie.media_type; // "movie" or "tv"
+            const detailsPath = mediaType === "movie" ? "film" : "series";
 
-              <button
-                className="details-button"
-                onClick={() =>
-                  alert(`Details for ${movie.title || movie.name}`)
-                }
-              >
-                Details
-              </button>
-            </div>
-          </div>
-        ))}
+            return (
+              <div className="movie-card" key={movieId}>
+                <Link
+                  to={`/details/${detailsPath}/${movieId}`}
+                  className="movie-link"
+                >
+                  <img
+                    src={posterPath}
+                    alt={movie.title || movie.name || "No title available"}
+                    className="movie-poster"
+                  />
+                </Link>
+                <div className="movie-details">
+                  <p className="movie-meta">
+                    <span className="movie-rating">
+                      <FaStar />
+                      {movie.vote_average.toFixed(1)}
+                    </span>
+                    <span className="movie-media-type">
+                      {mediaType === "movie" ? "Movie" : "TV"}
+                    </span>
+                    <span className="movie-year">{releaseYear}</span>
+                  </p>
+                  <Link
+                    className="movie-title"
+                    to={`/details/${detailsPath}/${movieId}`}
+                  >
+                    <h3>{movie.title || movie.name}</h3>
+                  </Link>
+
+                  <Link
+                    to={`/details/${detailsPath}/${movieId}`}
+                    className="details-button"
+                  >
+                    Details
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
       </main>
-      <Nav currentPath={location.pathname} />
     </>
   );
 };

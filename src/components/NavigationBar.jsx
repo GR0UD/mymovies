@@ -3,8 +3,6 @@ import { IoSearch } from "react-icons/io5";
 import { BsBookmark } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-import "../styles/nav.scss";
-
 function Nav({ currentPath }) {
   const getNavLinkClass = (path) => {
     return currentPath === path ? "nav-link primary" : "nav-link";

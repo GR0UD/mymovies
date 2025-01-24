@@ -52,9 +52,9 @@ function MovieDetailsContent({ movie, languageMap }) {
       </div>
 
       <div>
-        <div className="category-container__header">
-          <h2 className="category-container__title">Cast</h2>
-          <button className="category-container__button">See more</button>
+        <div className="cast-container__header">
+          <h2 className="cast-container__title">Cast</h2>
+          <button className="cast-container__button">See more</button>
         </div>
 
         <ul className="movie-details__cast">
