@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "../../../components/header";
-import SeriesDetailsVideo from "../../../components/series-details/SeriesDetailsVideo";
-import SeriesDetailsContent from "../../../components/series-details/SeriesDetailsContent";
+import SeriesDetailsVideo from "../../../components/details/series/SeriesDetailsVideo";
+import SeriesDetailsContent from "../../../components/details/series/SeriesDetailsContent";
 
 const languageMap = {
   en: "English",
