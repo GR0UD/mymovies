@@ -6,6 +6,7 @@
 @use "../styles/SearchScss/searchBar.scss";
 @use "../styles/SearchScss/searchCard.scss";
 @use "../styles/series-details.scss";
+@use "../styles/CastDetailsContent.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kufam:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital@0;1&display=swap");
 
 // Global Styles
@@ -21,7 +22,6 @@ html {
 }
 
 main {
-  max-height: calc(100dvh - 60px);
   overflow-y: auto;
   background-color: transparent !important;
 

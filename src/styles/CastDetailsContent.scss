@@ -1,0 +1,101 @@
+.cast-details-page {
+  max-width: 100dvh !important;
+  margin: 0 auto;
+  .cast-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+
+    .cast-details {
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+
+      .cast-details__profile {
+        text-align: center;
+
+        img {
+          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          object-fit: cover;
+          margin-bottom: 20px;
+        }
+
+        .cast-details__name {
+          font-size: 2rem;
+          font-weight: bold;
+        }
+      }
+
+      .cast-details__biography {
+        margin: 20px 0;
+
+        h2 {
+          font-size: 1.6rem;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 1.2rem;
+          line-height: 1.6;
+          color: #555;
+        }
+      }
+
+      .cast-details__movies {
+        h2 {
+          font-size: 1.6rem;
+          font-weight: bold;
+        }
+
+        .cast-details__movie-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          gap: 20px;
+          list-style: none;
+          padding: 0;
+
+          .cast-details__movie-item {
+            text-align: center;
+            .movie-link {
+              display: block;
+              text-decoration: none;
+              color: #333;
+              transition: all 0.3s;
+              &hover {
+                text-decoration: underline;
+              }
+            }
+            img {
+              border-radius: 10px;
+              width: 100%;
+              height: auto;
+              margin-bottom: 10px;
+            }
+            img {
+              border-radius: 10px;
+              width: 100%;
+              height: auto;
+              margin-bottom: 10px;
+            }
+
+            h3 {
+              font-size: 1rem;
+              margin: 0 0 5px;
+              &hover {
+                text-decoration: underline;
+              }
+            }
+
+            p {
+              font-size: 0.9rem;
+              color: #777;
+            }
+          }
+        }
+      }
+    }
+  }
+}

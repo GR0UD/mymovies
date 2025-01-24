@@ -1,4 +1,5 @@
 import { FaRegBookmark, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function MovieDetailsContent({ movie, languageMap }) {
   return (
@@ -60,16 +61,18 @@ function MovieDetailsContent({ movie, languageMap }) {
         <ul className="movie-details__cast">
           {movie.credits.cast.map((actor) => (
             <li key={actor.cast_id} className="movie-details__cast-item">
-              <img
-                src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                alt={actor.name}
-                className="movie-details__cast-image"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "/placeholder.png";
-                }}
-              />
-              <h3 className="movie-details__cast-name">{actor.name}</h3>
+              <Link to={`/details/cast/${actor.id}`} className="cast-link">
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                  alt={actor.name}
+                  className="movie-details__cast-image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/placeholder.png";
+                  }}
+                />
+                <h3 className="movie-details__cast-name">{actor.name}</h3>
+              </Link>
             </li>
           ))}
         </ul>

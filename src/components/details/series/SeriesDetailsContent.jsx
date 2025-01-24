@@ -1,4 +1,5 @@
 import { FaRegBookmark, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function SeriesDetailsContent({ series, languageMap }) {
   return (
@@ -51,6 +52,32 @@ function SeriesDetailsContent({ series, languageMap }) {
       </div>
 
       <div>
+        <h2 className="series-details__heading">Seasons</h2>
+        <ul className="series-details__seasons">
+          {series.seasons.map((season) => (
+            <li key={season.id} className="series-details__season-item">
+              <img
+                src={`https://image.tmdb.org/t/p/w200${season.poster_path}`}
+                alt={season.name}
+                className="series-details__season-image"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/placeholder.png";
+                }}
+              />
+              <div className="series-details__season-info">
+                <h3 className="series-details__season-name">{season.name}</h3>
+                <p>
+                  {season.episode_count} episode
+                  {season.episode_count !== 1 ? "s" : ""}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
         <div className="cast-container__header">
           <h2 className="cast-container__title">Main Cast</h2>
           <button className="cast-container__button">See more</button>
@@ -59,18 +86,20 @@ function SeriesDetailsContent({ series, languageMap }) {
         <ul className="series-details__cast">
           {series.credits?.cast?.slice(0, 10).map((actor) => (
             <li key={actor.id} className="series-details__cast-item">
-              <img
-                src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                alt={actor.name}
-                className="series-details__cast-image"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "/placeholder.png";
-                }}
-              />
-              <h3 className="series-details__cast-name">
-                {actor.name} <span>as {actor.character}</span>
-              </h3>
+              <Link to={`/details/cast/${actor.id}`} className="cast-link">
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                  alt={actor.name}
+                  className="series-details__cast-image"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/placeholder.png";
+                  }}
+                />
+                <h3 className="series-details__cast-name">
+                  {actor.name} <span>as {actor.character}</span>
+                </h3>
+              </Link>
             </li>
           ))}
         </ul>
