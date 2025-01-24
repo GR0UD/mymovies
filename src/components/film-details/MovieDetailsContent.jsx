@@ -9,7 +9,7 @@ function MovieDetailsContent({ movie, languageMap }) {
           <FaRegBookmark className="movie-details__bookmark" />
         </div>
         <div className="movie-details__rating">
-          <FaStar /> {movie.vote_average}/10 IMDb
+          <FaStar /> {movie.vote_average.toFixed(1)}/10 IMDb
         </div>
       </div>
 

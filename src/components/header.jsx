@@ -1,14 +1,19 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TbMenu3 } from "react-icons/tb";
 import { HiOutlineArrowLongLeft } from "react-icons/hi2";
 import { useTheme } from "./ThemeContext";
+import SearchBar from "./search/SearchBar";
 
-function Header() {
+function Header({ query, setQuery, onSearch }) {
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme(); // Use the theme from context
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const isDetailsPage = location.pathname.startsWith("/details/");
+  const isSearchPage = location.pathname.startsWith("/search");
+
+  const handleHomeClick = () => navigate("/");
 
   return (
     <header
@@ -16,26 +21,40 @@ function Header() {
         isDetailsPage ? "header__container--details" : ""
       }`}
     >
-      {isDetailsPage ? (
-        <Link className="header__back-button" to="/">
+      {isDetailsPage || isSearchPage ? (
+        <button
+          className="header__back-button"
+          onClick={handleHomeClick}
+          aria-label="Go back to Home"
+        >
           <HiOutlineArrowLongLeft />
-        </Link>
+        </button>
       ) : (
-        <button className="header__back-button">
+        <button className="header__menu-button" aria-label="Open Menu">
           <TbMenu3 />
         </button>
       )}
-      <h1 className="header__title">MyMovies</h1>
-      <div className="header__switch-container">
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={theme === "dark"}
-            onChange={toggleTheme}
-          />
-          <span className="slider round"></span>
-        </label>
-      </div>
+
+      {isSearchPage && (
+        <SearchBar query={query} setQuery={setQuery} onSearch={onSearch} />
+      )}
+
+      {!isSearchPage && !isDetailsPage && (
+        <h1 className="header__title">MyMovies</h1>
+      )}
+
+      {(!isSearchPage || isDetailsPage) && (
+        <div className="header__switch-container">
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={theme === "dark"}
+              onChange={toggleTheme}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      )}
     </header>
   );
 }
