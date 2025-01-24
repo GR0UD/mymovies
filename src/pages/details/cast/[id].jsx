@@ -1,75 +1,75 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "../../../components/header";
-import { FaRegBookmark, FaStar } from "react-icons/fa";
 
-function MovieDetails() {
+function CastDetails() {
   const { id } = useParams();
-  const navigate = useNavigate(); // For navigation
   const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
-  const [movie, setMovie] = useState(null);
+  const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    async function fetchMovie() {
+    async function fetchCast() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`
+        `https://api.themoviedb.org/3/person/${id}?api_key=${API_KEY}&language=en-US&append_to_response=movie_credits`
       );
       const data = await response.json();
-      setMovie(data);
+      setCast(data);
     }
-    fetchMovie();
+    fetchCast();
   }, [id]);
 
-  if (!movie) {
+  if (!cast) {
     return <div>Loading...</div>;
   }
 
-  const handleCastClick = (castId) => {
-    navigate(`/cast/${castId}`); // Navigate to CastDetails page
-  };
-
   return (
-    <main className="movie-details-page">
+    <main className="cast-details-page">
       <Header />
-      <div className="movie-details-container">
-        <iframe
-          className="movie-details__video"
-          src={`https://www.youtube.com/embed/${movie.videos.results[0]?.key}`}
-          style={{ border: 0 }}
-          allowFullScreen
-        ></iframe>
-
-        <div className="movie-details">
-          <h1 className="movie-details__title">{movie.title}</h1>
-          <div className="movie-details__rating">
-            <FaStar /> {movie.vote_average}/10 IMDb
+      <div className="cast-details-container">
+        <div className="cast-details">
+          <div className="cast-details__profile">
+            <img
+              src={`https://image.tmdb.org/t/p/w300${cast.profile_path}`}
+              alt={cast.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/placeholder.png";
+              }}
+            />
+            <h1 className="cast-details__name">{cast.name}</h1>
           </div>
-
-          <h2 className="movie-details__heading">Cast</h2>
-          <ul className="movie-details__cast">
-            {movie.credits.cast.map((actor) => (
-              <li
-                key={actor.cast_id}
-                className="movie-details__cast-item"
-                onClick={() => handleCastClick(actor.id)}
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                  alt={actor.name}
-                  className="movie-details__cast-image"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/placeholder.png";
-                  }}
-                />
-                <h3 className="movie-details__cast-name">{actor.name}</h3>
-              </li>
-            ))}
-          </ul>
+          <div className="cast-details__biography">
+            <h2>Biography</h2>
+            <p>{cast.biography || "Biography not available."}</p>
+          </div>
+          <div className="cast-details__movies">
+            <h2>Movies</h2>
+            <ul className="cast-details__movie-list">
+              {cast.movie_credits.cast.map((movie) => (
+                <li key={movie.id} className="cast-details__movie-item">
+                  <Link to={`/details/film/${movie.id}`} className="movie-link">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                      alt={movie.title}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/placeholder.png";
+                      }}
+                    />
+                    <div>
+                      <h3>{movie.title}</h3>
+                      <p>{movie.release_date || "N/A"}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </main>
   );
 }
 
-export default MovieDetails;
+export default CastDetails;

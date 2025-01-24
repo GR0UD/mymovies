@@ -22,7 +22,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
 
         .series-details__title {
           font-size: 2rem;
@@ -71,7 +71,7 @@
 
       .series-details__info {
         display: flex;
-        margin-bottom: 20px;
+        margin-bottom: 2rem;
         gap: 5rem;
 
         .series-details__info-box {
@@ -83,7 +83,7 @@
             font-family: "Mulish", sans-serif;
             color: #9c9c9c;
             text-align: left;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
           }
 
           span:last-child {
@@ -98,7 +98,7 @@
       .series-details__heading {
         font-size: 1.6rem;
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
         font-family: "Merriweather", serif;
       }
 
@@ -107,7 +107,7 @@
         line-height: 2.2;
         color: #9c9c9c;
         font-family: "Mulish", sans-serif;
-        margin-bottom: 20px;
+        margin-bottom: 2rem;
       }
 
       .cast-container__header {
@@ -138,6 +138,43 @@
         }
       }
 
+      .series-details__seasons {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin-bottom: 2rem;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .series-details__season-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          max-width: 72px;
+
+          img {
+            width: 72px;
+            height: 72px;
+            border-radius: 10%;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+          }
+
+          .series-details__season-name {
+            font-size: 1.2rem;
+            font-family: "Mulish", sans-serif !important;
+            width: 100%;
+            text-align: left;
+            word-wrap: break-word;
+            white-space: normal;
+            font-weight: 400;
+          }
+        }
+      }
+
       .series-details__cast {
         display: flex;
         gap: 1.5rem;
@@ -155,12 +192,18 @@
           align-items: flex-start;
           max-width: 72px;
 
+          .cast-link {
+            text-decoration: none;
+            width: 100%;
+            word-wrap: break-word;
+            white-space: normal;
+          }
           img {
             width: 72px;
             height: 72px;
             border-radius: 10%;
             object-fit: cover;
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
           }
 
           .series-details__cast-name {
@@ -171,6 +214,12 @@
             word-wrap: break-word;
             white-space: normal;
             font-weight: 400;
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }
