@@ -1,9 +1,11 @@
 // Imports
 @use "category.scss";
 @use "header.scss";
+@use "nav.scss";
 @use "details.scss";
 @use "../styles/SearchScss/searchBar.scss";
 @use "../styles/SearchScss/searchCard.scss";
+@use "../styles/series-details.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kufam:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital@0;1&display=swap");
 
 // Global Styles
@@ -69,6 +71,11 @@ body.light {
     color: $light-primary;
   }
 
+  .series-details {
+    background-color: $light-background;
+    color: $light-color;
+  }
+
   nav {
     background-color: $light-background;
     color: $light-color;
@@ -105,6 +112,10 @@ body.dark {
       color: $dark-color;
       background-color: $dark-background;
     }
+  }
+  .series-details {
+    background-color: $dark-background;
+    color: $dark-color;
   }
 
   h1,
