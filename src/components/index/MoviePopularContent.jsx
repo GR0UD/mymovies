@@ -87,7 +87,7 @@ function Fetch() {
                 </h3>
               </Link>
               <span className="category-container__rating">
-                <FaStar /> {item.vote_average}/10 IMDb
+                <FaStar /> {item.vote_average.toFixed(1)}/10 IMDb
               </span>
               <div className="category-container__tags">
                 {getGenres(item.genre_ids).map((tag, index) => (

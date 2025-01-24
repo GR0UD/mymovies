@@ -2,6 +2,8 @@
 @use "category.scss";
 @use "header.scss";
 @use "details.scss";
+@use "../styles/SearchScss/searchBar.scss";
+@use "../styles/SearchScss/searchCard.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kufam:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital@0;1&display=swap");
 
 // Global Styles
@@ -20,56 +22,128 @@ main {
   max-height: calc(100dvh - 60px);
   overflow-y: auto;
   background-color: transparent !important;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
+// Theme Variables
+$light-background: white;
+$light-color: black;
+$light-primary: #110e47;
+
+$dark-background: #121212;
+$dark-color: white;
+$dark-primary: #736ddf;
+
 // Light Theme Styles
 body.light {
-  background-color: white;
-  color: black;
+  background-color: $light-background;
+  color: $light-color;
 
-  h2 {
-    color: #110e47;
+  .search-bar {
+    background-color: $light-background;
+    color: $light-color;
+    border: 1px solid $light-primary;
   }
-
-  h3 {
-    color: black;
-  }
-
-  .movie-details {
-    background-color: white;
-    color: black;
-  }
-
-  .primary {
-    color: #110e47 !important;
-  }
-}
-
-// Dark Theme Styles
-body.dark {
-  background-color: #121212;
-  color: white;
 
   h1,
   h2,
   h3,
   h4 {
-    color: white;
-  }
-
-  .header__back-button {
-    color: white;
+    color: $light-primary;
   }
 
   .movie-details {
-    background-color: #121212;
-    color: white;
+    background-color: $light-background;
+    color: $light-color;
   }
 
   .primary {
-    color: #736ddf !important;
+    color: $light-primary !important;
+  }
+
+  .header__back-button,
+  .header__menu-button {
+    color: $light-primary;
+  }
+
+  nav {
+    background-color: $light-background;
+    color: $light-color;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+
+    .nav-list {
+      background-color: transparent !important;
+
+      .nav-item {
+        .nav-link {
+          color: #bcbccd;
+
+          .nav-icon {
+            transition: all 0.3s ease;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark Theme Styles
+body.dark {
+  background-color: $dark-background;
+  color: $dark-color;
+
+  .search-bar {
+    background-color: $dark-background;
+    color: $dark-color;
+    border: 1px solid $dark-primary;
+
+    .search-bar__input {
+      border-color: #ccc;
+      color: $dark-color;
+      background-color: $dark-background;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: $dark-color;
+  }
+
+  .movie-details {
+    background-color: $dark-background;
+    color: $dark-color;
+  }
+
+  .primary {
+    color: $dark-primary !important;
+  }
+
+  .header__back-button,
+  .header__menu-button {
+    color: $dark-color;
+  }
+  nav {
+    background-color: $dark-background;
+    color: $dark-color;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+
+    .nav-list {
+      background-color: transparent !important;
+
+      .nav-item {
+        .nav-link {
+          color: #bcbccd;
+
+          .nav-icon {
+            transition: all 0.3s ease;
+          }
+        }
+      }
+    }
   }
 }
