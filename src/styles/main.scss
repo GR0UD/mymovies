@@ -45,7 +45,7 @@ body.light {
   .search-bar {
     background-color: $light-background;
     color: $light-color;
-    border: 1px solid $light-primary;
+    border: 0.5px solid rgba(1, 1, 1, 0.05);
   }
 
   h1,
@@ -98,7 +98,7 @@ body.dark {
   .search-bar {
     background-color: $dark-background;
     color: $dark-color;
-    border: 1px solid $dark-primary;
+    border: 0.5px solid rgba(255, 255, 255, 0.05);
 
     .search-bar__input {
       border-color: #ccc;
