@@ -8,14 +8,14 @@ const Index = () => {
   const [movies, setMovies] = useState([]);
 
   const searchMovies = async () => {
-    const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
+    const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
     const BASE_URL = "https://api.themoviedb.org/3/search/multi";
 
     try {
       const response = await fetch(
         `${BASE_URL}?api_key=${API_KEY}&query=${encodeURIComponent(
-          query
-        )}&include_adult=false&language=en-US&page=1`
+          query,
+        )}&include_adult=false&language=en-US&page=1`,
       );
 
       if (!response.ok) {
@@ -38,7 +38,7 @@ const Index = () => {
             (movie) =>
               movie.poster_path &&
               (movie.release_date || movie.first_air_date) &&
-              movie.vote_average !== undefined
+              movie.vote_average !== undefined,
           )
           .map((movie) => {
             const posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;

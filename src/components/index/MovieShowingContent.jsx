@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useWatchlist } from "../../contexts/WatchlistContext";
 
 function Fetch() {
-  const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const [data, setData] = useState([]);
   const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 

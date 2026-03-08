@@ -70,7 +70,7 @@ const languageMap = {
 function MovieDetails() {
   const { id } = useParams();
   const location = useLocation();
-  const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
