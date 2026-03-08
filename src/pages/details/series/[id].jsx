@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "../../../components/header";
+import Nav from "../../../components/NavigationBar";
 import SeriesDetailsVideo from "../../../components/details/series/SeriesDetailsVideo";
 import SeriesDetailsContent from "../../../components/details/series/SeriesDetailsContent";
 
@@ -47,6 +48,7 @@ const languageMap = {
 
 function SeriesDetails() {
   const { id } = useParams();
+  const location = useLocation();
   const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
   const [series, setSeries] = useState(null);
 
@@ -54,7 +56,7 @@ function SeriesDetails() {
     const fetchSeries = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`
+          `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`,
         );
         const data = await response.json();
         setSeries(data);
@@ -65,17 +67,30 @@ function SeriesDetails() {
     fetchSeries();
   }, [id]);
 
-  if (!series) return <div>Loading...</div>;
+  if (!series) {
+    return (
+      <>
+        <Header />
+        <main className="series-details-page">
+          <div>Loading...</div>
+        </main>
+        <Nav currentPath={location.pathname} />
+      </>
+    );
+  }
 
   const videoKey = series.videos?.results?.[0]?.key || null;
   return (
-    <main className="series-details-page">
+    <>
       <Header />
-      <div className="series-details-container">
-        <SeriesDetailsVideo videoKey={videoKey} />
-        <SeriesDetailsContent series={series} languageMap={languageMap} />
-      </div>
-    </main>
+      <main className="series-details-page">
+        <div className="series-details-container">
+          <SeriesDetailsVideo videoKey={videoKey} />
+          <SeriesDetailsContent series={series} languageMap={languageMap} />
+        </div>
+      </main>
+      <Nav currentPath={location.pathname} />
+    </>
   );
 }
 

@@ -1,0 +1,276 @@
+.watchlist-container {
+  padding: 2.4rem;
+  background-color: transparent !important;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .watchlist-container__title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      font-family: "Merriweather", serif;
+    }
+
+    .watchlist-container__count {
+      font-size: 1rem;
+      color: #aaa;
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    gap: 2rem;
+
+    p {
+      font-size: 1.4rem;
+      color: #999;
+    }
+
+    .watchlist-container__link {
+      text-decoration: none;
+      background: #110e47;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+    padding: 1.2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__image-wrapper {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.8rem;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__movie-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: "Mulish", sans-serif;
+    margin: 0;
+  }
+
+  &__rating {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    svg {
+      color: #f5c518;
+    }
+  }
+
+  &__overview {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: "Mulish", sans-serif;
+  }
+
+  &__remove-btn {
+    align-self: flex-start;
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #cc0000;
+    }
+
+    svg {
+      color: white;
+    }
+  }
+
+  /* Desktop responsive styles */
+  @media (min-width: 768px) {
+    padding: 3rem;
+
+    &__header {
+      margin-bottom: 3rem;
+
+      .watchlist-container__title {
+        font-size: 2rem;
+      }
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    &__item {
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    &__image {
+      width: 100%;
+      height: 250px;
+    }
+
+    &__movie-title {
+      font-size: 1.6rem;
+    }
+
+    &__overview {
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
+
+    &__empty {
+      min-height: 600px;
+
+      p {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    &__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+/* Dark theme support */
+body.dark .watchlist-container {
+  &__item {
+    background: #1e1e1e;
+    color: #fff;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__movie-title {
+    color: #fff;
+  }
+
+  &__overview {
+    color: #bbb;
+  }
+
+  &__rating {
+    color: #ccc;
+  }
+
+  &__count {
+    color: #999;
+  }
+
+  &__empty {
+    p {
+      color: #ccc;
+    }
+
+    .watchlist-container__link {
+      background: #736ddf;
+      color: white;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  &__remove-btn {
+    background: #d32f2f;
+
+    &:hover {
+      background: #b71c1c;
+    }
+  }
+
+  &__link {
+    color: inherit;
+
+    &:hover {
+      text-decoration-color: #fff;
+    }
+  }
+}

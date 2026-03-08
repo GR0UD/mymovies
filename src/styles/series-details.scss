@@ -1,5 +1,10 @@
 .series-details-page {
   max-height: 100dvh;
+  padding-top: 60px;
+
+  @media (min-width: 768px) {
+    padding-top: 0;
+  }
 
   .series-details-container {
     display: flex;
@@ -9,32 +14,53 @@
     iframe {
       width: 100%;
       height: 250px;
+      border-radius: 4px;
     }
 
     .series-details {
       position: relative;
       top: -30px;
       border-radius: 10px 10px 0 0;
-      padding: 20px;
+      padding: 2rem 2.4rem;
       width: 100%;
+      font-family: "Mulish", sans-serif;
 
       .series-details__header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 1rem;
+        gap: 1rem;
 
         .series-details__title {
           font-size: 2rem;
           font-weight: bold;
+          flex: 1;
         }
 
-        .series-details__bookmark {
-          font-size: 2rem;
+        .series-details__bookmark-btn {
+          flex-shrink: 0;
+          background: transparent;
+          border: none;
           cursor: pointer;
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
 
-          &.active {
-            color: #ffcc00;
+          &:hover {
+            transform: scale(1.1);
+          }
+
+          .bookmark-icon {
+            font-size: 2rem;
+            color: #aaa;
+            transition: color 0.2s ease;
+
+            &.filled {
+              color: #ffc107;
+            }
           }
         }
       }
@@ -43,7 +69,7 @@
         display: flex;
         align-items: flex-start;
         font-size: 1.2rem;
-        color: #666;
+        color: var(--text-secondary, #666);
         margin-bottom: 1.6rem;
 
         svg {
@@ -81,7 +107,7 @@
             display: block;
             font-size: 1.2rem;
             font-family: "Mulish", sans-serif;
-            color: #9c9c9c;
+            color: var(--text-secondary, #9c9c9c);
             text-align: left;
             margin-bottom: 0.5rem;
           }
@@ -105,7 +131,7 @@
       .series-details__description {
         font-size: 1.2rem;
         line-height: 2.2;
-        color: #9c9c9c;
+        color: var(--text-secondary, #9c9c9c);
         font-family: "Mulish", sans-serif;
         margin-bottom: 2rem;
       }
@@ -124,8 +150,8 @@
 
         .cast-container__button {
           font-size: 1rem;
-          color: #aaa9b1;
-          border: 1px solid #aaa9b1;
+          color: var(--text-secondary, #aaa9b1);
+          border: 1px solid var(--border-color, #aaa9b1);
           background: none;
           cursor: pointer;
           padding: 0.5rem 1rem;
@@ -133,7 +159,7 @@
           transition: background-color 0.3s;
 
           &:hover {
-            background-color: #f0f0f0;
+            background-color: var(--bg-secondary, #f0f0f0);
           }
         }
       }
@@ -219,6 +245,131 @@
             flex-direction: column;
             &:hover {
               text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Desktop responsive styles */
+  @media (min-width: 768px) {
+    .series-details-container {
+      iframe {
+        height: 400px;
+        border-radius: 12px;
+        margin: 2rem 3rem 0 3rem;
+        max-width: calc(100% - 6rem);
+      }
+
+      .series-details {
+        top: -50px;
+        padding: 40px;
+
+        .series-details__title {
+          font-size: 2.8rem;
+          font-family: "Merriweather", serif;
+        }
+
+        .series-details__header {
+          gap: 2rem;
+        }
+
+        .series-details__info {
+          gap: 8rem;
+        }
+
+        .cast-container__header {
+          .cast-container__title {
+            font-size: 1.8rem;
+            font-family: "Merriweather", serif;
+          }
+        }
+
+        .series-details__seasons {
+          gap: 2rem;
+
+          .series-details__season-item {
+            max-width: 120px;
+
+            img {
+              width: 120px;
+              height: 120px;
+              border-radius: 12px;
+            }
+          }
+        }
+
+        .series-details__cast {
+          gap: 2rem;
+
+          .series-details__cast-item {
+            max-width: 120px;
+
+            img {
+              width: 120px;
+              height: 120px;
+              border-radius: 12px;
+            }
+
+            .series-details__cast-name {
+              font-size: 1.3rem;
+              font-family: "Mulish", sans-serif;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .series-details-container {
+      iframe {
+        height: 500px;
+        border-radius: 16px;
+      }
+
+      .series-details {
+        width: 100%;
+        top: -50px;
+        padding: 40px 60px;
+
+        .series-details__title {
+          font-size: 3rem;
+        }
+
+        .cast-container__header {
+          .cast-container__title {
+            font-size: 2rem;
+          }
+        }
+
+        .series-details__seasons {
+          gap: 2.5rem;
+
+          .series-details__season-item {
+            max-width: 150px;
+
+            img {
+              width: 150px;
+              height: 150px;
+            }
+          }
+        }
+
+        .series-details__cast {
+          gap: 2.5rem;
+
+          .series-details__cast-item {
+            max-width: 150px;
+
+            img {
+              width: 150px;
+              height: 150px;
+            }
+
+            .series-details__cast-name {
+              font-size: 1.4rem;
             }
           }
         }

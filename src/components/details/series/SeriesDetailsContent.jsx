@@ -1,12 +1,37 @@
-import { FaRegBookmark, FaStar } from "react-icons/fa";
+import { FaRegBookmark, FaStar, FaBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useWatchlist } from "../../../contexts/WatchlistContext";
 
 function SeriesDetailsContent({ series, languageMap }) {
+  const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
+
+  const handleBookmarkClick = () => {
+    if (isInWatchlist(series.id)) {
+      removeFromWatchlist(series.id);
+    } else {
+      addToWatchlist(series);
+    }
+  };
+
   return (
     <div className="series-details">
       <div className="series-details__header">
         <h1 className="series-details__title">{series.name}</h1>
-        <FaRegBookmark className="series-details__bookmark" />
+        <button
+          className="series-details__bookmark-btn"
+          onClick={handleBookmarkClick}
+          aria-label={
+            isInWatchlist(series.id)
+              ? "Remove from watchlist"
+              : "Add to watchlist"
+          }
+        >
+          {isInWatchlist(series.id) ? (
+            <FaBookmark className="bookmark-icon filled" />
+          ) : (
+            <FaRegBookmark className="bookmark-icon" />
+          )}
+        </button>
       </div>
 
       <div className="series-details__rating">

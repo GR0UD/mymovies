@@ -7,6 +7,7 @@
 @use "../styles/SearchScss/searchCard.scss";
 @use "../styles/series-details.scss";
 @use "../styles/CastDetailsContent.scss";
+@use "watchlist.scss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kufam:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital@0;1&display=swap");
 
 // Global Styles
@@ -18,15 +19,20 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Mulish", serif;
+  font-family: "Mulish", sans-serif;
 }
 
 main {
   overflow-y: auto;
   background-color: transparent !important;
+  padding-bottom: 70px;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: 768px) {
+    padding-bottom: 0;
   }
 }
 
@@ -44,6 +50,13 @@ body.light {
   background-color: $light-background;
   color: $light-color;
 
+  --bg-primary: #{$light-background};
+  --bg-secondary: #f5f5f5;
+  --text-primary: #{$light-primary};
+  --text-secondary: #666;
+  --accent-color: #110e47;
+  --border-color: #ddd;
+
   .search-bar {
     background-color: $light-background;
     color: $light-color;
@@ -57,42 +70,8 @@ body.light {
     color: $light-primary;
   }
 
-  .movie-details {
-    background-color: $light-background;
-    color: $light-color;
-  }
-
   .primary {
     color: $light-primary !important;
-  }
-
-  .header__menu-button {
-    color: $light-primary;
-  }
-
-  .series-details {
-    background-color: $light-background;
-    color: $light-color;
-  }
-
-  nav {
-    background-color: $light-background;
-    color: $light-color;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-
-    .nav-list {
-      background-color: transparent !important;
-
-      .nav-item {
-        .nav-link {
-          color: #bcbccd;
-
-          .nav-icon {
-            transition: all 0.3s ease;
-          }
-        }
-      }
-    }
   }
 }
 
@@ -101,20 +80,23 @@ body.dark {
   background-color: $dark-background;
   color: $dark-color;
 
+  --bg-primary: #{$dark-background};
+  --bg-secondary: #1e1e1e;
+  --text-primary: #{$dark-color};
+  --text-secondary: #aaa;
+  --accent-color: #736ddf;
+  --border-color: #333;
+
   .search-bar {
     background-color: $dark-background;
     color: $dark-color;
     border: 0.5px solid rgba(255, 255, 255, 0.05);
 
     .search-bar__input {
-      border-color: #ccc;
+      border-color: #555;
       color: $dark-color;
       background-color: $dark-background;
     }
-  }
-  .series-details {
-    background-color: $dark-background;
-    color: $dark-color;
   }
 
   h1,
@@ -124,36 +106,88 @@ body.dark {
     color: $dark-color;
   }
 
-  .movie-details {
-    background-color: $dark-background;
-    color: $dark-color;
-  }
-
   .primary {
     color: $dark-primary !important;
   }
 
-  .header__back-button,
-  .header__menu-button {
-    color: $dark-color;
-  }
-  nav {
+  // Movie details dark mode
+  .movie-details {
     background-color: $dark-background;
     color: $dark-color;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 
-    .nav-list {
-      background-color: transparent !important;
+    .movie-details__rating {
+      color: #aaa;
+    }
 
-      .nav-item {
-        .nav-link {
-          color: #bcbccd;
+    .movie-details__description {
+      color: #bbb;
+    }
 
-          .nav-icon {
-            transition: all 0.3s ease;
-          }
-        }
+    .movie-details__info .movie-details__info-box span:first-child {
+      color: #999;
+    }
+
+    .cast-container__button {
+      color: #888;
+      border-color: #555;
+
+      &:hover {
+        background-color: #2a2a2a;
       }
     }
+  }
+
+  // Series details dark mode
+  .series-details {
+    background-color: $dark-background;
+    color: $dark-color;
+
+    .series-details__rating {
+      color: #aaa;
+    }
+
+    .series-details__description {
+      color: #bbb;
+    }
+
+    .series-details__info .series-details__info-box span:first-child {
+      color: #999;
+    }
+
+    .cast-container__button {
+      color: #888;
+      border-color: #555;
+
+      &:hover {
+        background-color: #2a2a2a;
+      }
+    }
+  }
+
+  // Nav dark mode
+  nav {
+    background-color: $dark-background;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+
+    @media (min-width: 768px) {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // Header dark mode
+  .header__back-button {
+    color: $dark-color;
+  }
+
+  .header__title {
+    color: $dark-color;
+  }
+}
+
+/* Desktop responsive styles */
+@media (min-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
   }
 }

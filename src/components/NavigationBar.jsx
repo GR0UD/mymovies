@@ -14,16 +14,19 @@ function Nav({ currentPath }) {
         <li className="nav-item">
           <Link to="/search" className={getNavLinkClass("/search")}>
             <IoSearch className="nav-icon" />
+            <span className="nav-label">Search</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/" className={getNavLinkClass("/")}>
             <PiFilmReel className="nav-icon" />
+            <span className="nav-label">Home</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/watchlist" className={getNavLinkClass("/watchlist")}>
             <BsBookmark className="nav-icon" />
+            <span className="nav-label">Watchlist</span>
           </Link>
         </li>
       </ul>

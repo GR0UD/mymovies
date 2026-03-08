@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "../../../components/header";
+import Nav from "../../../components/NavigationBar";
 import MovieDetailsVideo from "../../../components/details/film/MovieDetailsVideo";
 import MovieDetailsContent from "../../../components/details/film/MovieDetailsContent";
 
@@ -68,13 +69,14 @@ const languageMap = {
 
 function MovieDetails() {
   const { id } = useParams();
+  const location = useLocation();
   const API_KEY = "74c6766dbfbd327bf7e620410afd666b";
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     async function fetchMovie() {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos`,
       );
       const data = await response.json();
       setMovie(data);
@@ -83,17 +85,28 @@ function MovieDetails() {
   }, [id]);
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Header />
+        <main className="movie-details-page">
+          <div>Loading...</div>
+        </main>
+        <Nav currentPath={location.pathname} />
+      </>
+    );
   }
 
   return (
-    <main className="movie-details-page">
+    <>
       <Header />
-      <div className="movie-details-container">
-        <MovieDetailsVideo videoKey={movie.videos.results[0]?.key} />
-        <MovieDetailsContent movie={movie} languageMap={languageMap} />
-      </div>
-    </main>
+      <main className="movie-details-page">
+        <div className="movie-details-container">
+          <MovieDetailsVideo videoKey={movie.videos.results[0]?.key} />
+          <MovieDetailsContent movie={movie} languageMap={languageMap} />
+        </div>
+      </main>
+      <Nav currentPath={location.pathname} />
+    </>
   );
 }
 
