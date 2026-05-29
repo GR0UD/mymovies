@@ -1,8 +1,14 @@
 import { FaRegBookmark, FaStar, FaBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useWatchlist } from "../../../contexts/WatchlistContext";
+import type { Movie, LanguageMap } from "../../../types/tmdb";
 
-function MovieDetailsContent({ movie, languageMap }) {
+interface MovieDetailsContentProps {
+  movie: Movie;
+  languageMap: LanguageMap;
+}
+
+function MovieDetailsContent({ movie, languageMap }: MovieDetailsContentProps) {
   const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   const handleBookmarkClick = () => {
@@ -21,11 +27,7 @@ function MovieDetailsContent({ movie, languageMap }) {
           <button
             className="movie-details__bookmark-btn"
             onClick={handleBookmarkClick}
-            aria-label={
-              isInWatchlist(movie.id)
-                ? "Remove from watchlist"
-                : "Add to watchlist"
-            }
+            aria-label={isInWatchlist(movie.id) ? "Remove from watchlist" : "Add to watchlist"}
           >
             {isInWatchlist(movie.id) ? (
               <FaBookmark className="bookmark-icon filled" />
@@ -57,14 +59,10 @@ function MovieDetailsContent({ movie, languageMap }) {
                 : "N/A"}
             </span>
           </div>
-
           <div className="movie-details__info-box">
             <span>Language</span>
-            <span>
-              {languageMap[movie.original_language] || movie.original_language}
-            </span>
+            <span>{languageMap[movie.original_language] || movie.original_language}</span>
           </div>
-
           <div className="movie-details__info-box">
             <span>Rating</span>
             <span>{movie.adult ? "R" : "PG-13"}</span>
@@ -85,15 +83,15 @@ function MovieDetailsContent({ movie, languageMap }) {
 
         <ul className="movie-details__cast">
           {movie.credits.cast.map((actor) => (
-            <li key={actor.cast_id} className="movie-details__cast-item">
+            <li key={actor.cast_id ?? actor.id} className="movie-details__cast-item">
               <Link to={`/details/cast/${actor.id}`} className="cast-link">
                 <img
                   src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
                   alt={actor.name}
                   className="movie-details__cast-image"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/placeholder.png";
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/placeholder.png";
                   }}
                 />
                 <h3 className="movie-details__cast-name">{actor.name}</h3>

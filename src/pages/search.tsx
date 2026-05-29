@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from React Router
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/header";
 import { FaStar } from "react-icons/fa";
+import type { SearchResult } from "../types/tmdb";
 
-const Index = () => {
+const Search = () => {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<SearchResult[]>([]);
 
   const searchMovies = async () => {
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -13,14 +14,10 @@ const Index = () => {
 
     try {
       const response = await fetch(
-        `${BASE_URL}?api_key=${API_KEY}&query=${encodeURIComponent(
-          query,
-        )}&include_adult=false&language=en-US&page=1`,
+        `${BASE_URL}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=1`,
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
       const data = await response.json();
       setMovies(data.results);
@@ -43,18 +40,12 @@ const Index = () => {
           .map((movie) => {
             const posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
             const releaseYear =
-              movie.release_date?.slice(0, 4) ||
-              movie.first_air_date?.slice(0, 4);
-            const movieId = movie.id;
-            const mediaType = movie.media_type; // "movie" or "tv"
-            const detailsPath = mediaType === "movie" ? "film" : "series";
+              movie.release_date?.slice(0, 4) || movie.first_air_date?.slice(0, 4);
+            const detailsPath = movie.media_type === "movie" ? "film" : "series";
 
             return (
-              <div className="movie-card" key={movieId}>
-                <Link
-                  to={`/details/${detailsPath}/${movieId}`}
-                  className="movie-link"
-                >
+              <div className="movie-card" key={movie.id}>
+                <Link to={`/details/${detailsPath}/${movie.id}`} className="movie-link">
                   <img
                     src={posterPath}
                     alt={movie.title || movie.name || "No title available"}
@@ -68,21 +59,14 @@ const Index = () => {
                       {movie.vote_average.toFixed(1)}
                     </span>
                     <span className="movie-media-type">
-                      {mediaType === "movie" ? "Movie" : "TV"}
+                      {movie.media_type === "movie" ? "Movie" : "TV"}
                     </span>
                     <span className="movie-year">{releaseYear}</span>
                   </p>
-                  <Link
-                    className="movie-title"
-                    to={`/details/${detailsPath}/${movieId}`}
-                  >
+                  <Link className="movie-title" to={`/details/${detailsPath}/${movie.id}`}>
                     <h3>{movie.title || movie.name}</h3>
                   </Link>
-
-                  <Link
-                    to={`/details/${detailsPath}/${movieId}`}
-                    className="details-button"
-                  >
+                  <Link to={`/details/${detailsPath}/${movie.id}`} className="details-button">
                     Details
                   </Link>
                 </div>
@@ -94,4 +78,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Search;

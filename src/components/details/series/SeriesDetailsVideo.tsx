@@ -1,4 +1,8 @@
-function SeriesDetailsVideo({ videoKey }) {
+interface SeriesDetailsVideoProps {
+  videoKey: string | null;
+}
+
+function SeriesDetailsVideo({ videoKey }: SeriesDetailsVideoProps) {
   if (!videoKey) {
     return <p className="series-details__no-video">No video available</p>;
   }
@@ -9,7 +13,7 @@ function SeriesDetailsVideo({ videoKey }) {
       src={`https://www.youtube.com/embed/${videoKey}?modestbranding=1&controls=0&rel=0&showinfo=0`}
       style={{ border: 0 }}
       allowFullScreen
-    ></iframe>
+    />
   );
 }
 

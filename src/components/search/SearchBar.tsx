@@ -1,6 +1,12 @@
 import { IoSearch } from "react-icons/io5";
 
-export default function SearchBar({ query, setQuery, onSearch }) {
+interface SearchBarProps {
+  query: string;
+  setQuery: (q: string) => void;
+  onSearch: () => void;
+}
+
+export default function SearchBar({ query, setQuery, onSearch }: SearchBarProps) {
   return (
     <div className="search-bar">
       <form

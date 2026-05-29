@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/header";
 import NowShowing from "../components/index/MovieShowingContent";
 import MostPopular from "../components/index/MoviePopularContent";

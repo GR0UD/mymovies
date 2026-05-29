@@ -1,8 +1,14 @@
 import { FaRegBookmark, FaStar, FaBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useWatchlist } from "../../../contexts/WatchlistContext";
+import type { Series, LanguageMap } from "../../../types/tmdb";
 
-function SeriesDetailsContent({ series, languageMap }) {
+interface SeriesDetailsContentProps {
+  series: Series;
+  languageMap: LanguageMap;
+}
+
+function SeriesDetailsContent({ series, languageMap }: SeriesDetailsContentProps) {
   const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   const handleBookmarkClick = () => {
@@ -20,11 +26,7 @@ function SeriesDetailsContent({ series, languageMap }) {
         <button
           className="series-details__bookmark-btn"
           onClick={handleBookmarkClick}
-          aria-label={
-            isInWatchlist(series.id)
-              ? "Remove from watchlist"
-              : "Add to watchlist"
-          }
+          aria-label={isInWatchlist(series.id) ? "Remove from watchlist" : "Add to watchlist"}
         >
           {isInWatchlist(series.id) ? (
             <FaBookmark className="bookmark-icon filled" />
@@ -35,7 +37,7 @@ function SeriesDetailsContent({ series, languageMap }) {
       </div>
 
       <div className="series-details__rating">
-        <FaStar /> {series.vote_average?.toFixed(1) || "N/A"}/10 IMDb
+        <FaStar /> {series.vote_average?.toFixed(1) ?? "N/A"}/10 IMDb
       </div>
 
       <div className="series-details__tags">
@@ -49,23 +51,21 @@ function SeriesDetailsContent({ series, languageMap }) {
       <div className="series-details__info">
         <div className="series-details__info-box">
           <span>Seasons</span>
-          <span>{series.number_of_seasons || "N/A"}</span>
+          <span>{series.number_of_seasons ?? "N/A"}</span>
         </div>
         <div className="series-details__info-box">
           <span>Episodes</span>
-          <span>{series.number_of_episodes || "N/A"}</span>
+          <span>{series.number_of_episodes ?? "N/A"}</span>
         </div>
         <div className="series-details__info-box">
           <span>Language</span>
           <span>
-            {series.languages
-              ?.map((lang) => languageMap[lang] || lang)
-              .join(", ") || "N/A"}
+            {series.languages?.map((lang) => languageMap[lang] ?? lang).join(", ") ?? "N/A"}
           </span>
         </div>
         <div className="series-details__info-box">
           <span>Status</span>
-          <span>{series.status || "Unknown"}</span>
+          <span>{series.status ?? "Unknown"}</span>
         </div>
       </div>
 
@@ -86,16 +86,13 @@ function SeriesDetailsContent({ series, languageMap }) {
                 alt={season.name}
                 className="series-details__season-image"
                 onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "/placeholder.png";
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/placeholder.png";
                 }}
               />
               <div className="series-details__season-info">
                 <h3 className="series-details__season-name">{season.name}</h3>
-                <p>
-                  {season.episode_count} episode
-                  {season.episode_count !== 1 ? "s" : ""}
-                </p>
+                <p>{season.episode_count} episode{season.episode_count !== 1 ? "s" : ""}</p>
               </div>
             </li>
           ))}
@@ -117,8 +114,8 @@ function SeriesDetailsContent({ series, languageMap }) {
                   alt={actor.name}
                   className="series-details__cast-image"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/placeholder.png";
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/placeholder.png";
                   }}
                 />
                 <h3 className="series-details__cast-name">

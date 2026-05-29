@@ -4,74 +4,24 @@ import Header from "../../../components/header";
 import Nav from "../../../components/NavigationBar";
 import MovieDetailsVideo from "../../../components/details/film/MovieDetailsVideo";
 import MovieDetailsContent from "../../../components/details/film/MovieDetailsContent";
+import type { Movie, LanguageMap } from "../../../types/tmdb";
 
-const genreList = [
-  { id: 28, name: "Action" },
-  { id: 12, name: "Adventure" },
-  { id: 16, name: "Animation" },
-  { id: 35, name: "Comedy" },
-  { id: 80, name: "Crime" },
-  { id: 99, name: "Documentary" },
-  { id: 18, name: "Drama" },
-  { id: 10751, name: "Family" },
-  { id: 14, name: "Fantasy" },
-  { id: 36, name: "History" },
-  { id: 27, name: "Horror" },
-  { id: 10402, name: "Music" },
-  { id: 9648, name: "Mystery" },
-  { id: 10749, name: "Romance" },
-  { id: 878, name: "Science Fiction" },
-  { id: 10770, name: "TV Movie" },
-  { id: 53, name: "Thriller" },
-  { id: 10752, name: "War" },
-  { id: 37, name: "Western" },
-];
-const languageMap = {
-  en: "English",
-  es: "Spanish",
-  fr: "French",
-  de: "German",
-  it: "Italian",
-  pt: "Portuguese",
-  ru: "Russian",
-  ja: "Japanese",
-  zh: "Chinese",
-  ar: "Arabic",
-  ko: "Korean",
-  hi: "Hindi",
-  bn: "Bengali",
-  ur: "Urdu",
-  fa: "Persian",
-  he: "Hebrew",
-  tr: "Turkish",
-  vi: "Vietnamese",
-  th: "Thai",
-  sv: "Swedish",
-  nl: "Dutch",
-  pl: "Polish",
-  id: "Indonesian",
-  ms: "Malay",
-  tl: "Tagalog",
-  uk: "Ukrainian",
-  el: "Greek",
-  ro: "Romanian",
-  hu: "Hungarian",
-  cs: "Czech",
-  sk: "Slovak",
-  bg: "Bulgarian",
-  sr: "Serbian",
-  hr: "Croatian",
-  fi: "Finnish",
-  da: "Danish",
-  te: "Telugu",
-  no: "Norwegian",
+const languageMap: LanguageMap = {
+  en: "English", es: "Spanish", fr: "French", de: "German", it: "Italian",
+  pt: "Portuguese", ru: "Russian", ja: "Japanese", zh: "Chinese", ar: "Arabic",
+  ko: "Korean", hi: "Hindi", bn: "Bengali", ur: "Urdu", fa: "Persian",
+  he: "Hebrew", tr: "Turkish", vi: "Vietnamese", th: "Thai", sv: "Swedish",
+  nl: "Dutch", pl: "Polish", id: "Indonesian", ms: "Malay", tl: "Tagalog",
+  uk: "Ukrainian", el: "Greek", ro: "Romanian", hu: "Hungarian", cs: "Czech",
+  sk: "Slovak", bg: "Bulgarian", sr: "Serbian", hr: "Croatian", fi: "Finnish",
+  da: "Danish", te: "Telugu", no: "Norwegian",
 };
 
 function MovieDetails() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     async function fetchMovie() {
@@ -82,7 +32,7 @@ function MovieDetails() {
       setMovie(data);
     }
     fetchMovie();
-  }, [id]);
+  }, [id, API_KEY]);
 
   if (!movie) {
     return (

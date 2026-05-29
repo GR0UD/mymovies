@@ -2,10 +2,18 @@ import { useState, useEffect } from "react";
 import { FaStar, FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useWatchlist } from "../../contexts/WatchlistContext";
+import type { WatchlistItem } from "../../types/tmdb";
 
-function Fetch() {
+interface NowPlayingMovie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+}
+
+function MovieShowingContent() {
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<NowPlayingMovie[]>([]);
   const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   useEffect(() => {
@@ -13,13 +21,13 @@ function Fetch() {
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
       );
-      const data = await response.json();
-      setData(data.results);
+      const json = await response.json();
+      setData(json.results);
     }
     fetchData();
-  }, []);
+  }, [API_KEY]);
 
-  const handleBookmarkClick = (e, movie) => {
+  const handleBookmarkClick = (e: React.MouseEvent, movie: WatchlistItem) => {
     e.preventDefault();
     e.stopPropagation();
     if (isInWatchlist(movie.id)) {
@@ -40,10 +48,7 @@ function Fetch() {
         {data.map((item) => (
           <li key={item.id} className="category-container__item">
             <div className="category-container__image-wrapper">
-              <Link
-                className="category-container__link"
-                to={`/details/film/${item.id}`}
-              >
+              <Link className="category-container__link" to={`/details/film/${item.id}`}>
                 <img
                   className="category-container__image"
                   src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
@@ -53,11 +58,7 @@ function Fetch() {
               <button
                 className="category-container__bookmark-btn"
                 onClick={(e) => handleBookmarkClick(e, item)}
-                aria-label={
-                  isInWatchlist(item.id)
-                    ? "Remove from watchlist"
-                    : "Add to watchlist"
-                }
+                aria-label={isInWatchlist(item.id) ? "Remove from watchlist" : "Add to watchlist"}
               >
                 {isInWatchlist(item.id) ? (
                   <FaBookmark className="bookmark-icon filled" />
@@ -67,13 +68,8 @@ function Fetch() {
               </button>
             </div>
             <div className="category-container__details">
-              <Link
-                className="category-container__link"
-                to={`/details/film/${item.id}`}
-              >
-                <h3 className="category-container__movie-title">
-                  {item.title}
-                </h3>
+              <Link className="category-container__link" to={`/details/film/${item.id}`}>
+                <h3 className="category-container__movie-title">{item.title}</h3>
               </Link>
               <span className="category-container__rating">
                 <FaStar /> {item.vote_average.toFixed(1)}/10 IMDb
@@ -86,4 +82,4 @@ function Fetch() {
   );
 }
 
-export default Fetch;
+export default MovieShowingContent;

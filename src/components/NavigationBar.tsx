@@ -3,10 +3,13 @@ import { IoSearch } from "react-icons/io5";
 import { BsBookmark } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function Nav({ currentPath }) {
-  const getNavLinkClass = (path) => {
-    return currentPath === path ? "nav-link primary" : "nav-link";
-  };
+interface NavProps {
+  currentPath: string;
+}
+
+function Nav({ currentPath }: NavProps) {
+  const getNavLinkClass = (path: string) =>
+    currentPath === path ? "nav-link primary" : "nav-link";
 
   return (
     <nav className="nav">

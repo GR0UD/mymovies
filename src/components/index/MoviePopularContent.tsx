@@ -3,8 +3,14 @@ import { FaStar, FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { HiOutlineClock } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { useWatchlist } from "../../contexts/WatchlistContext";
+import type { WatchlistItem } from "../../types/tmdb";
 
-const genreList = [
+interface Genre {
+  id: number;
+  name: string;
+}
+
+const genreList: Genre[] = [
   { id: 28, name: "Action" },
   { id: 12, name: "Adventure" },
   { id: 16, name: "Animation" },
@@ -26,9 +32,18 @@ const genreList = [
   { id: 37, name: "Western" },
 ];
 
-function Fetch() {
+interface PopularMovie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  genre_ids: number[];
+  runtime?: number | null;
+}
+
+function MoviePopularContent() {
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<PopularMovie[]>([]);
   const { isInWatchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   useEffect(() => {
@@ -39,7 +54,7 @@ function Fetch() {
       const movieList = await response.json();
 
       const detailedMovies = await Promise.all(
-        movieList.results.map(async (movie) => {
+        movieList.results.map(async (movie: PopularMovie) => {
           const detailsResponse = await fetch(
             `https://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&language=en-US`,
           );
@@ -51,15 +66,14 @@ function Fetch() {
       setData(detailedMovies);
     }
     fetchData();
-  }, []);
+  }, [API_KEY]);
 
-  const getGenres = (genreIds) => {
-    return genreIds
-      .map((id) => genreList.find((genre) => genre.id === id)?.name)
-      .filter((name) => name);
-  };
+  const getGenres = (genreIds: number[]): string[] =>
+    genreIds
+      .map((id) => genreList.find((g) => g.id === id)?.name)
+      .filter((name): name is string => Boolean(name));
 
-  const handleBookmarkClick = (e, movie) => {
+  const handleBookmarkClick = (e: React.MouseEvent, movie: WatchlistItem) => {
     e.preventDefault();
     e.stopPropagation();
     if (isInWatchlist(movie.id)) {
@@ -80,10 +94,7 @@ function Fetch() {
         {data.map((item) => (
           <li key={item.id} className="category-container__item">
             <div className="category-container__image-wrapper">
-              <Link
-                className="category-container__link"
-                to={`/details/film/${item.id}`}
-              >
+              <Link className="category-container__link" to={`/details/film/${item.id}`}>
                 <img
                   className="category-container__image"
                   src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
@@ -93,11 +104,7 @@ function Fetch() {
               <button
                 className="category-container__bookmark-btn"
                 onClick={(e) => handleBookmarkClick(e, item)}
-                aria-label={
-                  isInWatchlist(item.id)
-                    ? "Remove from watchlist"
-                    : "Add to watchlist"
-                }
+                aria-label={isInWatchlist(item.id) ? "Remove from watchlist" : "Add to watchlist"}
               >
                 {isInWatchlist(item.id) ? (
                   <FaBookmark className="bookmark-icon filled" />
@@ -107,13 +114,8 @@ function Fetch() {
               </button>
             </div>
             <div className="category-container__details">
-              <Link
-                className="category-container__link"
-                to={`/details/film/${item.id}`}
-              >
-                <h3 className="category-container__movie-title">
-                  {item.title}
-                </h3>
+              <Link className="category-container__link" to={`/details/film/${item.id}`}>
+                <h3 className="category-container__movie-title">{item.title}</h3>
               </Link>
               <span className="category-container__rating">
                 <FaStar /> {item.vote_average.toFixed(1)}/10 IMDb
@@ -139,4 +141,4 @@ function Fetch() {
   );
 }
 
-export default Fetch;
+export default MoviePopularContent;

@@ -4,53 +4,24 @@ import Header from "../../../components/header";
 import Nav from "../../../components/NavigationBar";
 import SeriesDetailsVideo from "../../../components/details/series/SeriesDetailsVideo";
 import SeriesDetailsContent from "../../../components/details/series/SeriesDetailsContent";
+import type { Series, LanguageMap } from "../../../types/tmdb";
 
-const languageMap = {
-  en: "English",
-  es: "Spanish",
-  fr: "French",
-  de: "German",
-  it: "Italian",
-  pt: "Portuguese",
-  ru: "Russian",
-  ja: "Japanese",
-  zh: "Chinese",
-  ar: "Arabic",
-  ko: "Korean",
-  hi: "Hindi",
-  bn: "Bengali",
-  ur: "Urdu",
-  fa: "Persian",
-  he: "Hebrew",
-  tr: "Turkish",
-  vi: "Vietnamese",
-  th: "Thai",
-  sv: "Swedish",
-  nl: "Dutch",
-  pl: "Polish",
-  id: "Indonesian",
-  ms: "Malay",
-  tl: "Tagalog",
-  uk: "Ukrainian",
-  el: "Greek",
-  ro: "Romanian",
-  hu: "Hungarian",
-  cs: "Czech",
-  sk: "Slovak",
-  bg: "Bulgarian",
-  sr: "Serbian",
-  hr: "Croatian",
-  fi: "Finnish",
-  da: "Danish",
-  te: "Telugu",
-  no: "Norwegian",
+const languageMap: LanguageMap = {
+  en: "English", es: "Spanish", fr: "French", de: "German", it: "Italian",
+  pt: "Portuguese", ru: "Russian", ja: "Japanese", zh: "Chinese", ar: "Arabic",
+  ko: "Korean", hi: "Hindi", bn: "Bengali", ur: "Urdu", fa: "Persian",
+  he: "Hebrew", tr: "Turkish", vi: "Vietnamese", th: "Thai", sv: "Swedish",
+  nl: "Dutch", pl: "Polish", id: "Indonesian", ms: "Malay", tl: "Tagalog",
+  uk: "Ukrainian", el: "Greek", ro: "Romanian", hu: "Hungarian", cs: "Czech",
+  sk: "Slovak", bg: "Bulgarian", sr: "Serbian", hr: "Croatian", fi: "Finnish",
+  da: "Danish", te: "Telugu", no: "Norwegian",
 };
 
 function SeriesDetails() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-  const [series, setSeries] = useState(null);
+  const [series, setSeries] = useState<Series | null>(null);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -65,7 +36,7 @@ function SeriesDetails() {
       }
     };
     fetchSeries();
-  }, [id]);
+  }, [id, API_KEY]);
 
   if (!series) {
     return (
@@ -79,7 +50,8 @@ function SeriesDetails() {
     );
   }
 
-  const videoKey = series.videos?.results?.[0]?.key || null;
+  const videoKey = series.videos?.results?.[0]?.key ?? null;
+
   return (
     <>
       <Header />

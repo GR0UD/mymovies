@@ -1,15 +1,12 @@
 .cast-details-page {
-  padding: 0 2.4rem;
-  padding-top: 60px;
+  padding: 0 var(--page-px);
+  padding-top: 90px;
   min-height: 100vh;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 
-  @media (min-width: 768px) {
-    padding: 0 2.4rem;
+  @media (min-width: 1000px) {
+    padding-top: 3.2rem;
   }
 }
 
@@ -18,7 +15,8 @@
   align-items: center;
   justify-content: center;
   height: 60vh;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+
   color: var(--text-secondary);
 }
 
@@ -27,21 +25,19 @@
   margin: 0 auto;
 }
 
-/* Profile Section */
 .cast-details__profile-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
-  margin-bottom: 40px;
+  gap: 2.4rem;
+  margin-bottom: 4rem;
   text-align: center;
 
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: flex-start;
     text-align: left;
-    gap: 40px;
-    margin-bottom: 50px;
+    gap: 4rem;
   }
 }
 
@@ -53,18 +49,13 @@
   width: 150px;
   height: 225px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
     width: 200px;
     height: 300px;
-    border-radius: 12px;
-  }
-
-  &:hover {
-    transform: scale(1.05);
+    border-radius: 16px;
   }
 }
 
@@ -73,136 +64,95 @@
 }
 
 .cast-details__name {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   font-family: "Merriweather", serif;
-  margin-bottom: 20px;
+  margin-bottom: 1.6rem;
   color: var(--text-primary);
 
   @media (min-width: 768px) {
-    font-size: 2.5rem;
-    margin-bottom: 25px;
+    font-size: 3rem;
+    margin-bottom: 2rem;
   }
 }
 
 .cast-details__metadata {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
 }
 
 .cast-details__meta-item {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-  }
+  gap: 0.8rem;
+  align-items: baseline;
 
   .label {
     font-weight: 600;
+    font-size: 1.2rem;
+
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    white-space: nowrap;
   }
 
   .value {
+    font-size: 1.2rem;
+
     color: var(--text-primary);
-    font-size: 0.95rem;
   }
 }
 
-/* Inline Biography (under metadata) */
 .cast-details__biography-inline {
-  border-top: 1px solid var(--bg-secondary);
-  padding-top: 20px;
-  margin-top: 20px;
+  border-top: 1px solid var(--border-color, #e0e0ee);
+  padding-top: 1.6rem;
+  margin-top: 1.6rem;
+  text-align: left;
 }
 
 .cast-details__section-title-inline {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  font-family: "Merriweather", serif;
-  margin-bottom: 12px;
-  color: var(--text-primary);
 
-  @media (min-width: 768px) {
-    font-size: 1.2rem;
-  }
+  margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
 .cast-details__biography-text-inline {
-  line-height: 1.6;
+  line-height: 1.8;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  text-align: left;
+  font-size: 1.2rem;
 
-  @media (min-width: 768px) {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-}
-
-/* Biography Section */
-.cast-details__biography-section {
-  margin-bottom: 50px;
-  order: 3;
-}
-
-.cast-details__profile-info .cast-details__biography-section {
-  margin-bottom: 0;
-  margin-top: 20px;
-  order: 1;
 }
 
 .cast-details__section-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  font-family: "Merriweather", serif;
+
   margin-bottom: 1.6rem;
   color: var(--text-primary);
 }
 
-.cast-details__biography-text {
-  line-height: 1.7;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  text-align: justify;
-
-  @media (min-width: 768px) {
-    font-size: 1rem;
-    columns: 2;
-    column-gap: 30px;
-  }
-
-  @media (min-width: 1024px) {
-    columns: 2;
-    column-gap: 40px;
-  }
-}
-
-/* Movies Section */
 .cast-details__movies-section {
-  margin-bottom: 2.4rem;
+  margin-bottom: 4rem;
 }
 
-/* Movie List - Responsive Grid using Flexbox */
 .cast-details__movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 2rem;
   list-style: none;
   padding: 0;
   margin: 0;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
 }
 
 .cast-details__movie-item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .cast-details__movie-link {
@@ -216,18 +166,24 @@
 .cast-details__movie-image-wrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 0.8rem;
   overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  background: var(--bg-secondary);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--bg-surface);
+  transition: transform 0.15s;
+
 }
 
 .cast-details__movie-image {
   width: 100%;
-  height: 220px;
+  height: 200px;
   object-fit: cover;
   display: block;
+
+  @media (min-width: 768px) {
+    height: 240px;
+  }
 }
 
 .cast-details__movie-info {
@@ -235,12 +191,12 @@
 }
 
 .cast-details__movie-title {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: 600;
+
   color: var(--text-primary);
-  font-family: "Mulish", sans-serif;
   line-height: 1.3;
-  margin: 0 0 4px 0;
+  margin: 0 0 3px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -249,13 +205,15 @@
 }
 
 .cast-details__movie-year {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+
   color: var(--text-secondary);
-  margin: 0 0 4px 0;
+  margin: 0 0 3px 0;
 }
 
 .cast-details__movie-character {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+
   color: var(--accent-color);
   font-style: italic;
   margin: 0;
@@ -264,35 +222,4 @@
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-}
-
-/* Dark Theme Support */
-body.dark {
-  .cast-details-page {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-  }
-
-  .cast-details__meta-item {
-    .label {
-      color: var(--text-secondary);
-    }
-
-    .value {
-      color: var(--text-primary);
-    }
-  }
-
-  .cast-details__movie-image-wrapper {
-    background: var(--bg-secondary);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-  }
-
-  .cast-details__movie-title {
-    color: var(--text-primary);
-  }
-
-  .cast-details__movie-year {
-    color: var(--text-secondary);
-  }
 }

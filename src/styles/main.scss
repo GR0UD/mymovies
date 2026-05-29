@@ -8,9 +8,9 @@
 @use "../styles/series-details.scss";
 @use "../styles/CastDetailsContent.scss";
 @use "watchlist.scss";
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kufam:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap");
 
-// Global Styles
+// ─── Global Reset ────────────────────────────────────────────────────────────
 * {
   padding: 0;
   margin: 0;
@@ -19,13 +19,29 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Mulish", sans-serif;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+// ─── Page spacing token ──────────────────────────────────────────────────────
+:root {
+  --page-px: 2rem;
+
+  @media (min-width: 768px) {
+    --page-px: 3.2rem;
+  }
+
+  @media (min-width: 1024px) {
+    --page-px: 5rem;
+  }
 }
 
 main {
   overflow-y: auto;
   background-color: transparent !important;
-  padding-bottom: 70px;
+  padding-bottom: 80px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -36,155 +52,133 @@ main {
   }
 }
 
-// Theme Variables
-$light-background: white;
-$light-color: black;
-$light-primary: #110e47;
-
-$dark-background: #121212;
-$dark-color: white;
-$dark-primary: #736ddf;
-
-// Light Theme Styles
+// ─── Light Theme ─────────────────────────────────────────────────────────────
 body.light {
-  background-color: $light-background;
-  color: $light-color;
+  background-color: #ffffff;
+  color: #0f0e1c;
 
-  --bg-primary: #{$light-background};
-  --bg-secondary: #f5f5f5;
-  --text-primary: #{$light-primary};
-  --text-secondary: #666;
-  --accent-color: #110e47;
-  --border-color: #ddd;
-
-  .search-bar {
-    background-color: $light-background;
-    color: $light-color;
-    border: 0.5px solid rgba(1, 1, 1, 0.05);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    color: $light-primary;
-  }
-
-  .primary {
-    color: $light-primary !important;
-  }
-}
-
-// Dark Theme Styles
-body.dark {
-  background-color: $dark-background;
-  color: $dark-color;
-
-  --bg-primary: #{$dark-background};
-  --bg-secondary: #1e1e1e;
-  --text-primary: #{$dark-color};
-  --text-secondary: #aaa;
-  --accent-color: #736ddf;
-  --border-color: #333;
+  --bg-primary: #ffffff;
+  --bg-surface: #f4f4f8;
+  --text-primary: #0f0e1c;
+  --text-secondary: #62627a;
+  --accent-color: #5b4cf5;
+  --accent-hover: #4338e0;
+  --border-color: #e0e0ee;
+  --tag-color: #5b4cf5;
+  --star-color: #f5a623;
 
   .search-bar {
-    background-color: $dark-background;
-    color: $dark-color;
-    border: 0.5px solid rgba(255, 255, 255, 0.05);
+    background-color: #f4f4f8;
+    color: #0f0e1c;
+    border: 1px solid #e0e0ee;
 
     .search-bar__input {
-      border-color: #555;
-      color: $dark-color;
-      background-color: $dark-background;
+      color: #0f0e1c;
+    }
+
+    .search-bar__button {
+      background-color: #5b4cf5;
+      &:hover { background-color: #4338e0; }
     }
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    color: $dark-color;
+  h1, h2, h3, h4 {
+    color: #0f0e1c;
   }
 
   .primary {
-    color: $dark-primary !important;
+    color: #5b4cf5 !important;
   }
 
-  // Movie details dark mode
-  .movie-details {
-    background-color: $dark-background;
-    color: $dark-color;
-
-    .movie-details__rating {
-      color: #aaa;
-    }
-
-    .movie-details__description {
-      color: #bbb;
-    }
-
-    .movie-details__info .movie-details__info-box span:first-child {
-      color: #999;
-    }
-
-    .cast-container__button {
-      color: #888;
-      border-color: #555;
-
-      &:hover {
-        background-color: #2a2a2a;
-      }
-    }
-  }
-
-  // Series details dark mode
+  .movie-details,
   .series-details {
-    background-color: $dark-background;
-    color: $dark-color;
-
-    .series-details__rating {
-      color: #aaa;
-    }
-
-    .series-details__description {
-      color: #bbb;
-    }
-
-    .series-details__info .series-details__info-box span:first-child {
-      color: #999;
-    }
-
-    .cast-container__button {
-      color: #888;
-      border-color: #555;
-
-      &:hover {
-        background-color: #2a2a2a;
-      }
-    }
-  }
-
-  // Nav dark mode
-  nav {
-    background-color: $dark-background;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
-
-    @media (min-width: 768px) {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-  }
-
-  // Header dark mode
-  .header__back-button {
-    color: $dark-color;
-  }
-
-  .header__title {
-    color: $dark-color;
+    background-color: #ffffff;
+    color: #0f0e1c;
   }
 }
 
-/* Desktop responsive styles */
+// ─── Dark Theme ──────────────────────────────────────────────────────────────
+body.dark {
+  background-color: #0c0c12;
+  color: #f0f0fa;
+
+  --bg-primary: #0c0c12;
+  --bg-surface: #16161f;
+  --text-primary: #f0f0fa;
+  --text-secondary: #8080a0;
+  --accent-color: #7c6fff;
+  --accent-hover: #9b91ff;
+  --border-color: #252535;
+  --tag-color: #7c6fff;
+  --star-color: #f5a623;
+
+  .search-bar {
+    background-color: #16161f;
+    color: #f0f0fa;
+    border: 1px solid #252535;
+
+    .search-bar__input {
+      color: #f0f0fa;
+    }
+
+    .search-bar__button {
+      background-color: #7c6fff;
+      &:hover { background-color: #9b91ff; }
+    }
+  }
+
+  h1, h2, h3, h4 {
+    color: #f0f0fa;
+  }
+
+  .primary {
+    color: #7c6fff !important;
+  }
+
+  .movie-details {
+    background-color: #0c0c12;
+    color: #f0f0fa;
+
+    .movie-details__rating { color: #8080a0; }
+    .movie-details__description { color: #a0a0c0; }
+    .movie-details__info .movie-details__info-box span:first-child { color: #8080a0; }
+
+    .cast-container__button {
+      color: #8080a0;
+      border-color: #252535;
+      &:hover { background-color: #16161f; }
+    }
+  }
+
+  .series-details {
+    background-color: #0c0c12;
+    color: #f0f0fa;
+
+    .series-details__rating { color: #8080a0; }
+    .series-details__description { color: #a0a0c0; }
+    .series-details__info .series-details__info-box span:first-child { color: #8080a0; }
+
+    .cast-container__button {
+      color: #8080a0;
+      border-color: #252535;
+      &:hover { background-color: #16161f; }
+    }
+  }
+
+  nav {
+    background-color: #0c0c12;
+    box-shadow: 0 -1px 0 #252535;
+
+    @media (min-width: 768px) {
+      box-shadow: 0 1px 0 #252535;
+    }
+  }
+
+  .header__back-button { color: #f0f0fa; }
+  .header__title { color: #f0f0fa; }
+}
+
+// ─── Desktop body layout ─────────────────────────────────────────────────────
 @media (min-width: 768px) {
   body {
     display: flex;
